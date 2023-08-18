@@ -6,6 +6,8 @@ declare const routes: Map<string, PathFunction<object>>
 
 declare function reverse<Args>(name: string, args?: Args): string
 
+declare function getReverseRoutesObject(): any
+
 declare const plugin: fastify.Plugin<
   Server,
   IncomingMessage,
@@ -28,4 +30,4 @@ declare module "fastify" {
 }
 
 export default reverse
-export { plugin, routes }
+export { plugin, routes, getReverseRoutesObject }
