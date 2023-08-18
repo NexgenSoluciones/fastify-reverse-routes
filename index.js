@@ -13,6 +13,13 @@ function reverse(name, args, opts) {
   return toPath(args, opts)
 }
 
+function getReverseRoutesObject() {
+  const routes = [...routes.entries()].reduce((result, [key, toPath]) => {
+    return { ...result, [key]: toPath() }
+  }, {})
+  return routes
+}
+
 function plugin(fastify, _, next) {
   fastify.decorate("reverse", reverse)
 
@@ -37,6 +44,7 @@ function plugin(fastify, _, next) {
 
 module.exports = reverse
 module.exports.routes = routes
+module.exports.getReverseRoutesObject = getReverseRoutesObject
 module.exports.plugin = fp(plugin, {
   fastify: ">= 1.6.0",
   name: "reverse",
