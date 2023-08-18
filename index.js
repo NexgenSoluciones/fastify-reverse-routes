@@ -17,15 +17,19 @@ function plugin(fastify, _, next) {
   fastify.decorate("reverse", reverse)
 
   fastify.addHook("onRoute", (routeOptions) => {
-    if (routeOptions.name) {
-      if (routes.has(routeOptions.name)) {
-        throw new Error(
-          `Route with name ${routeOptions.name} already registered`,
-        )
-      }
+    if (!routeOptions.name) return
 
-      routes.set(routeOptions.name, pathToRegexp.compile(routeOptions.url))
+    const routeName = routeOptions.name
+    const routePath = pathToRegexp.compile(routeOptions.url)
+
+    if (
+      routes.has(routeName) &&
+      routes.get(routeName).source !== routePath.source
+    ) {
+      throw new Error(`Route with name ${routeName} already registered`)
     }
+
+    routes.set(routeName, routePath)
   })
 
   next()

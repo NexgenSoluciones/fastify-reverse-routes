@@ -21,6 +21,10 @@ declare module "fastify" {
   interface RouteOptions {
     name: string
   }
+
+  interface RouteShorthandOptions {
+    name?: string
+  }
 }
 
 export default reverse
