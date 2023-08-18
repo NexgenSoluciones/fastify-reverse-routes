@@ -14,9 +14,11 @@ function reverse(name, args, opts) {
 }
 
 function getReverseRoutesObject() {
-  const routesObject = [...routes.entries()].reduce((result, [key, toPath]) => {
-    return { ...result, [key]: toPath() }
-  }, {})
+  const routesObject = [...routes.entries()]
+    .sort((a, b) => (a[0] > b[0] ? 1 : -1))
+    .reduce((result, [key, toPath]) => {
+      return { ...result, [key]: toPath() }
+    }, {})
   return routesObject
 }
 
