@@ -14,10 +14,10 @@ function reverse(name, args, opts) {
 }
 
 function getReverseRoutesObject() {
-  const routes = [...routes.entries()].reduce((result, [key, toPath]) => {
+  const routesObject = [...routes.entries()].reduce((result, [key, toPath]) => {
     return { ...result, [key]: toPath() }
   }, {})
-  return routes
+  return routesObject
 }
 
 function plugin(fastify, _, next) {
